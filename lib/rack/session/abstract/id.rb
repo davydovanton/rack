@@ -147,11 +147,9 @@ module Rack
         end
 
         def stringify_keys(other)
-          hash = {}
-          other.each do |key, value|
-            hash[key.to_s] = value
+          other.tap do |h|
+            h.keys.each { |k| h[k.to_s] = h.delete(k) }
           end
-          hash
         end
       end
 
